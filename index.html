@@ -31,6 +31,8 @@
   --leaf-soft:#eef6e3;
   --call:#3d8a3c;         /* 電話・依頼ボタン */
   --call-ink:#ffffff;
+  --c-home:#2f7fb3;       /* グラフ：ご自宅 */
+  --c-fac:#4f9a46;        /* グラフ：施設 */
   --font-display:"Zen Maru Gothic","Hiragino Maru Gothic ProN","Yu Gothic",sans-serif;
   --font-body:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",system-ui,sans-serif;
   --font-num:"DM Mono",ui-monospace,"SFMono-Regular",monospace;
@@ -40,12 +42,12 @@
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
     --bg:#0f1b23;--surface:#152733;--ink:#e4eff5;--muted:#95adbb;--line:#26404f;
-    --brand:#7cc0e8;--brand-soft:#183244;--leaf:#9cc95a;--leaf-soft:#1c3022;--call:#8fc552;--call-ink:#11200d;color-scheme:dark;
+    --brand:#7cc0e8;--brand-soft:#183244;--leaf:#9cc95a;--leaf-soft:#1c3022;--call:#8fc552;--call-ink:#11200d;--c-home:#3f8fc6;--c-fac:#6fa23c;color-scheme:dark;
   }
 }
 :root[data-theme="dark"]{
   --bg:#0f1b23;--surface:#152733;--ink:#e4eff5;--muted:#95adbb;--line:#26404f;
-  --brand:#7cc0e8;--brand-soft:#183244;--leaf:#9cc95a;--leaf-soft:#1c3022;--call:#8fc552;--call-ink:#11200d;color-scheme:dark;
+  --brand:#7cc0e8;--brand-soft:#183244;--leaf:#9cc95a;--leaf-soft:#1c3022;--call:#8fc552;--call-ink:#11200d;--c-home:#3f8fc6;--c-fac:#6fa23c;color-scheme:dark;
 }
 
 *{box-sizing:border-box}
@@ -144,6 +146,31 @@ td.hl{background:color-mix(in srgb,var(--brand-soft) 55%,transparent)}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .chip{font-size:.8rem;padding:4px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface)}
 @media (max-width:720px){.feat{grid-template-columns:1fr;gap:10px}}
+
+
+/* results chart */
+.res-top{display:flex;flex-wrap:wrap;gap:24px 48px;align-items:flex-end;justify-content:space-between;margin-bottom:20px}
+.res-big{display:grid;gap:2px}
+.res-big .n{font-family:var(--font-num);font-size:clamp(2.6rem,6vw,3.6rem);line-height:1;color:var(--ink);font-variant-numeric:tabular-nums}
+.res-big .n small{font-family:var(--font-body);font-size:1rem;margin-left:4px}
+.res-big .l{font-size:.85rem;color:var(--muted)}
+.legend{display:flex;gap:18px;font-size:.85rem;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:8px}
+.legend i{width:12px;height:12px;border-radius:3px;display:inline-block}
+.chart-box{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px 12px 8px}
+.chart-box svg{display:block;width:100%;height:auto}
+.chart-box .ax{font-family:var(--font-num);font-size:11px;fill:var(--muted)}
+.chart-box .xl{font-family:var(--font-body);font-size:12px;fill:var(--muted)}
+.chart-box .tot{font-family:var(--font-num);font-size:13px;font-weight:500;fill:var(--ink)}
+.chart-box .grid{stroke:var(--line);stroke-width:1}
+.chart-box .hit{fill:transparent;cursor:default}
+.chart-box .col.dim{opacity:.45}
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--bg);font-size:.8rem;line-height:1.6;padding:8px 12px;border-radius:8px;white-space:nowrap;transform:translate(-50%,-100%);font-variant-numeric:tabular-nums}
+.res-table{margin-top:14px}
+.res-table summary{cursor:pointer;color:var(--brand);font-weight:700;font-size:.9rem}
+.res-table table{min-width:420px;margin-top:10px}
+.res-table td,.res-table th{text-align:right;font-family:var(--font-num)}
+.res-table th:first-child{text-align:left;font-family:var(--font-body)}
 
 /* care grid */
 .care{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
@@ -250,6 +277,7 @@ footer{border-top:1px solid var(--line);padding-block:40px;font-size:.82rem;colo
     <nav class="gnav" aria-label="メインメニュー">
       <a href="#about">訪問診療とは</a>
       <a href="#features">当院の特徴</a>
+      <a href="#results">診療実績</a>
       <a href="#flow">ご利用の流れ</a>
       <a href="#area">訪問エリア</a>
       <a href="#pro">関係者の方へ</a>
@@ -355,6 +383,34 @@ footer{border-top:1px solid var(--line);padding-block:40px;font-size:.82rem;colo
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <section id="results">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Our results</p>
+        <h2>訪問診療の患者数</h2>
+        <p class="lead">2026年3月の開院以来、ご自宅・施設で訪問診療を受けていただいている患者さまの数は、毎月増えています。</p>
+      </div>
+      <div class="res-top">
+        <div class="res-big"><span class="n">288<small>人</small></span><span class="l">2026年9月の訪問診療患者数</span></div>
+        <div class="legend" aria-hidden="true"><span><i style="background:var(--c-home)"></i>ご自宅</span><span><i style="background:var(--c-fac)"></i>施設</span></div>
+      </div>
+      <div class="chart-box" id="resChart">
+        <svg viewBox="0 0 640 300" role="img" aria-label="2026年3月から9月までの月別訪問診療患者数。3月123人、4月163人、5月185人、6月212人、7月250人、8月275人、9月288人。"></svg>
+        <div class="tip" id="resTip" hidden></div>
+      </div>
+      <details class="res-table">
+        <summary>数値を表で見る</summary>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th scope="col">月</th><th scope="col">ご自宅</th><th scope="col">施設</th><th scope="col">合計</th></tr></thead>
+            <tbody id="resRows"></tbody>
+          </table>
+        </div>
+      </details>
+      <p class="note">※ 各月に在宅時医学総合管理料（ご自宅）・施設入居時等医学総合管理料（施設）を算定した患者さまの人数です。</p>
     </div>
   </section>
 
@@ -582,6 +638,41 @@ footer{border-top:1px solid var(--line);padding-block:40px;font-size:.82rem;colo
     <a class="btn btn-call" href="tel:0729788133">電話 072-978-8133</a>
   </div>
 </div>
+
+<script>
+(function(){
+  var data=[["3月",70,53],["4月",97,66],["5月",113,72],["6月",118,94],["7月",126,124],["8月",135,140],["9月",145,143]];
+  var box=document.getElementById("resChart"),svg=box.querySelector("svg"),tip=document.getElementById("resTip");
+  var NS="http://www.w3.org/2000/svg",W=640,H=300,L=40,R=10,T=26,B=34,max=300;
+  var ph=H-T-B,pw=W-L-R,step=pw/data.length,bw=Math.min(52,step*0.56);
+  function el(n,a,p){var e=document.createElementNS(NS,n);for(var k in a)e.setAttribute(k,a[k]);(p||svg).appendChild(e);return e}
+  function y(v){return T+ph-(v/max)*ph}
+  [0,100,200,300].forEach(function(v){el("line",{x1:L,x2:W-R,y1:y(v),y2:y(v),"class":"grid"});var t=el("text",{x:L-8,y:y(v)+4,"text-anchor":"end","class":"ax"});t.textContent=v});
+  function bar(x,y0,y1,fill,round){var h=y0-y1;if(h<=0)return;var r=round?4:0;
+    var d="M"+x+","+y0+"V"+(y1+r)+(r?"Q"+x+","+y1+" "+(x+r)+","+y1+"H"+(x+bw-r)+"Q"+(x+bw)+","+y1+" "+(x+bw)+","+(y1+r):"H"+(x+bw))+"V"+y0+"Z";
+    return d}
+  var rows="";
+  data.forEach(function(d,i){
+    var cx=L+step*i+step/2,x=cx-bw/2,tot=d[1]+d[2];
+    var g=el("g",{"class":"col"});
+    el("path",{d:bar(x,y(0),y(d[1])+1,null,false),fill:"var(--c-home)"},g);
+    el("path",{d:bar(x,y(d[1])-1,y(tot),null,true),fill:"var(--c-fac)"},g);
+    var t=el("text",{x:cx,y:y(tot)-8,"text-anchor":"middle","class":"tot"},g);t.textContent=tot;
+    var xl=el("text",{x:cx,y:H-12,"text-anchor":"middle","class":"xl"});xl.textContent=d[0];
+    var hit=el("rect",{x:cx-step/2,y:T-20,width:step,height:ph+20,"class":"hit"});
+    function show(){var r=svg.getBoundingClientRect(),k=r.width/W,br=box.getBoundingClientRect();
+      tip.innerHTML="<b>2026年"+d[0]+"</b><br>ご自宅 "+d[1]+"人<br>施設 "+d[2]+"人<br>合計 "+tot+"人";
+      tip.style.left=(r.left-br.left+cx*k)+"px";tip.style.top=(r.top-br.top+y(tot)*k-14)+"px";tip.hidden=false;
+      svg.querySelectorAll(".col").forEach(function(c){c.classList.toggle("dim",c!==g)})}
+    function hide(){tip.hidden=true;svg.querySelectorAll(".col").forEach(function(c){c.classList.remove("dim")})}
+    hit.addEventListener("mouseenter",show);hit.addEventListener("mouseleave",hide);
+    hit.addEventListener("touchstart",show,{passive:true});
+    rows+="<tr><th scope=\"row\">2026年"+d[0]+"</th><td>"+d[1]+"</td><td>"+d[2]+"</td><td>"+tot+"</td></tr>";
+  });
+  svg.addEventListener("mouseleave",function(){tip.hidden=true});
+  document.getElementById("resRows").innerHTML=rows;
+})();
+</script>
 
 </body>
 </html>
